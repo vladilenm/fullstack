@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col s12">
+    <div class="page-subtitle">
+      <h4>Позиции:</h4>
+      <button class="waves-effect waves-light btn grey darken-1 btn-small" (click)="addPosition()">
+        Добавить позицию
+      </button>
+    </div>
+
+    <div *ngIf="!loading; else loader">
+      <div class="collection" *ngIf="positions.length !== 0; else empty">
+        <a
+          *ngFor="let position of positions"
+          class="collection-item collection-item-icon"
+          (click)="onSelectPosition(position)"
+        >
+          <span>
+            {{position.name}} <strong>{{position.cost}} руб.</strong>
+          </span>
+          <span>
+            <i class="material-icons" (click)="removePosition($event, position)">delete</i>
+          </span>
+        </a>
+      </div>
+      <ng-template #empty>
+        <div class="center">Позиций пока нет</div>
+      </ng-template>
+    </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal" #modal>
+    <div class="modal-content">
+      <h4 class="mb1">Добавить позицию</h4>
+      <div class="input-field">
+        <input
+          id="pos-name"
+          type="text"
+          formControlName="name"
+          [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"
+        >
+        <label for="pos-name">Название</label>
+        <span class="helper-text red-text" *ngIf="form.get('name').invalid && form.get('name').touched">
+          Имя не должно быть пустым
+        </span>
+      </div>
+      <div class="input-field">
+        <input
+          id="pos-cost"
+          type="number"
+          formControlName="cost"
+          min="0"
+          [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}"
+        >
+        <label for="pos-cost">Цена</label>
+        <span class="helper-text red-text" *ngIf="form.get('cost').invalid && form.get('cost').touched">
+          Введите корректную цену
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        class="modal-action waves-effect waves-black btn-flat"
+        type="button"
+        (click)="onCancel()"
+        [disabled]="form.disabled"
+      >Отмена
+      </button>
+      <button
+        class="modal-action btn waves-effect"
+        type="submit"
+        [disabled]="form.invalid || form.disabled"
+      >
+        Сохранить
+      </button>
+    </div>
+  </div>
+</form>
+

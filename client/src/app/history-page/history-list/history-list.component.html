@@ -1,0 +1,21 @@
+<table class="highlight mb2">
+  <thead>
+  <tr>
+    <th>№</th>
+    <th>Дата</th>
+    <th>Время</th>
+    <th>Сумма</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let order of viewOrders">
+    <td>{{order.order}}</td>
+    <td>{{order.date}}</td>
+    <td>{{order.time}}</td>
+    <td>{{order.price}} руб.</td>
+  </tr>
+  </tbody>
+</table>
+
+

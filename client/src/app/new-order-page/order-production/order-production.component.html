@@ -1,0 +1,33 @@
+<app-pending-view [observer]="items$" emptyText="В категории отсутствуют позиции">
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th>Название</th>
+      <th>Стоимость</th>
+      <th>Количество</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let item of items$ | async">
+      <td>{{item.name}}</td>
+      <td>{{item.cost}} руб.</td>
+      <td>
+        <div class="input-field inline order-position-input">
+          <input type="number" min="1" [(ngModel)]="item.quantity">
+        </div>
+      </td>
+      <td>
+        <button
+          (click)="add(item)"
+          [disabled]="!item.quantity"
+          class="btn waves-effect wavers-light btn-small"
+        >Добавить</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</app-pending-view>
+
+

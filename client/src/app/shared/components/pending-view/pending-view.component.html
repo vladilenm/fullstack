@@ -1,0 +1,30 @@
+<div class="row center" *ngIf="!(observer$ | async); else done">
+  <div class="preloader-wrapper active">
+    <div class="spinner-layer spinner-red-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #done>
+  <div
+    *ngIf="(observer$ | async)?.length === 0; else content"
+    class="row center"
+  >
+    {{emptyText}}
+  </div>
+
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
+</ng-template>
+

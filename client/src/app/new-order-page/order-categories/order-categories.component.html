@@ -1,0 +1,21 @@
+<app-pending-view [observer]="categories$" emptyText="Категорий пока нет">
+  <div class="frow order-row">
+
+    <div
+      *ngFor="let category of categories$ | async"
+      class="card waves-effect pointer"
+      [routerLink]="['/order', category._id]"
+    >
+      <div class="center">
+        <img [src]="category.imageSrc" class="responsive-img order-img">
+      </div>
+      <div class="card-content center p10">
+        <h5 class="m0">{{category.name}}</h5>
+      </div>
+    </div>
+
+  </div>
+</app-pending-view>
+
+
+
