@@ -30,11 +30,11 @@
     "materialize-css": "^1.0.0-beta",
     "moment": "^2.22.1",
     "rxjs": "^5.5.6",
-    "zone.js": "^0.8.19"
+    "zone.js": "^0.8.19",
+    "@angular/cli": "~1.7.4",
+    "@angular/compiler-cli": "^5.2.0"
   },
   "devDependencies": {
-    "@angular/cli": "~1.7.4",
-    "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
