@@ -20,7 +20,6 @@ import {CategoriesService} from './shared/services/categories.service'
 import {TokenInterceptor} from './shared/classes/token.interceptor'
 import {PositionsFormComponent} from './products-page/product-form-page/positions-form/positions-form.component'
 import {PositionsService} from './shared/services/positions.service'
-import {PendingViewComponent} from './shared/components/pending-view/pending-view.component'
 import {OrderCategoriesComponent} from './new-order-page/order-categories/order-categories.component'
 import {OrderProductionComponent} from './new-order-page/order-production/order-production.component'
 import {OrdersService} from './shared/services/orders.service'
@@ -44,7 +43,6 @@ import {AnalyticsService} from './shared/services/analytics.service'
     ProductsPageComponent,
     ProductFormPageComponent,
     PositionsFormComponent,
-    PendingViewComponent,
     OrderCategoriesComponent,
     OrderProductionComponent,
     HistoryListComponent,

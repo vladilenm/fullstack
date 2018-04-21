@@ -34,8 +34,10 @@ export class LoginPageComponent implements OnInit {
     this.form.disable()
     this.auth.login(this.form.value).subscribe(
       () =>  this.router.navigate(['/overview']),
-      error => MaterialService.toast(error.error.message),
-      () => this.form.enable()
+      error => {
+        MaterialService.toast(error.error.message)
+        this.form.enable()
+      }
     )
   }
 }

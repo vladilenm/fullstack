@@ -1,8 +1,7 @@
-<app-pending-view [observer]="categories$" emptyText="Категорий пока нет">
-  <div class="frow order-row">
-
+<div *ngIf="categories$ | async as categories; else loader">
+  <div class="frow order-row" *ngIf="categories.length !== 0; else empty">
     <div
-      *ngFor="let category of categories$ | async"
+      *ngFor="let category of categories"
       class="card waves-effect pointer"
       [routerLink]="['/order', category._id]"
     >
@@ -13,9 +12,12 @@
         <h5 class="m0">{{category.name}}</h5>
       </div>
     </div>
-
   </div>
-</app-pending-view>
+  <ng-template #empty>
+    <div class="center">Категорий пока нет</div>
+  </ng-template>
+</div>
 
-
-
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -8,12 +8,12 @@
     </div>
     <div class="col filter-pickers">
       <div class="input-field">
-        <input type="text" class="datepicker" #dtStart disabled>
+        <input type="text" class="datepicker" #dtStart>
         <label>Начало</label>
       </div>
 
       <div class="input-field">
-        <input type="text" class="datepicker" #dtEnd disabled>
+        <input type="text" class="datepicker" #dtEnd>
         <label>Конец</label>
       </div>
     </div>
@@ -25,12 +25,5 @@
     [disabled]="!valid"
   >
     Применить фильтр
-  </button>
-  <button
-    class=" waves-effect btn-flat"
-    (click)="resetFilter()"
-    [disabled]="!valid"
-  >
-    Отменить фильтр
   </button>
 </div>

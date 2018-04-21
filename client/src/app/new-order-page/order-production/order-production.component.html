@@ -1,5 +1,5 @@
-<app-pending-view [observer]="items$" emptyText="В категории отсутствуют позиции">
-  <table class="highlight">
+<div *ngIf="items$ | async as items; else loader">
+  <table class="highlight" *ngIf="items.length !== 0; else empty">
     <thead>
     <tr>
       <th>Название</th>
@@ -10,7 +10,7 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let item of items$ | async">
+    <tr *ngFor="let item of items">
       <td>{{item.name}}</td>
       <td>{{item.cost}} руб.</td>
       <td>
@@ -23,11 +23,18 @@
           (click)="add(item)"
           [disabled]="!item.quantity"
           class="btn waves-effect wavers-light btn-small"
-        >Добавить</button>
+        >Добавить
+        </button>
       </td>
     </tr>
     </tbody>
   </table>
-</app-pending-view>
 
+  <ng-template #empty>
+    <div class="center">Позиций пока нет</div>
+  </ng-template>
+</div>
 
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

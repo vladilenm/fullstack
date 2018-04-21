@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core'
 import {OrdersService} from '../shared/services/orders.service'
-import {Observable} from 'rxjs/Observable'
 import {Order} from '../shared/interfaces'
 import {Filter} from './history-filter/history-filter.component'
 

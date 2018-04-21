@@ -33,6 +33,11 @@ export class HistoryFilterComponent implements AfterViewInit, OnDestroy {
   }
 
   validateDate() {
+    if (this.start.date === null || this.end.date === null) {
+      this.valid = true
+      return
+    }
+
     const s = moment(this.start.date)
     const e = moment(this.end.date)
 
@@ -55,13 +60,6 @@ export class HistoryFilterComponent implements AfterViewInit, OnDestroy {
     }
 
     this.onFilter.emit(opts)
-  }
-
-  resetFilter() {
-    this.orderNumber = null
-    this.end.setDate(null)
-    this.start.setDate(null)
-    this.onFilter.emit({})
   }
 
   ngOnDestroy() {

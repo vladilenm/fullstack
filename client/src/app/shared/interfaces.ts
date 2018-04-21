@@ -44,9 +44,12 @@ export interface Overview {
 }
 
 export interface Analytics {
-  gain: number
-  order: number
-  label: string
+  chart: {
+    gain: number
+    order: number
+    label: string
+  }[]
+  average: number
 }
 
 export interface OverviewItem  {

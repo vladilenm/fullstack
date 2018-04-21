@@ -32,8 +32,10 @@ export class RegistrationPageComponent implements OnInit {
           }
         })
       },
-      error => MaterialService.toast(error.error.message),
-      () => this.form.enable()
+      error => {
+        MaterialService.toast(error.error.message)
+        this.form.enable()
+      }
     )
   }
 }

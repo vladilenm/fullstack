@@ -11,7 +11,7 @@ export class AnalyticsService {
     return this.http.get<Overview>('/api/analytics/overview')
   }
 
-  fetchAnalytics(): Observable<Analytics[]> {
-    return this.http.get<Analytics[]>('/api/analytics/analytics')
+  fetchAnalytics(): Observable<Analytics> {
+    return this.http.get<Analytics>('/api/analytics/analytics')
   }
 }
