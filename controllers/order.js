@@ -1,5 +1,4 @@
 const Order = require('../models/order')
-const moment = require('moment')
 const errorHandler = require('../utils/error')
 
 module.exports.getAll = async function(req, res) {
@@ -30,9 +29,7 @@ module.exports.getAll = async function(req, res) {
       .skip(+req.query.offset)
       .limit(+req.query.limit)
 
-    // setTimeout(() => {
     res.status(200).json(orders)
-    // }, 2000)
   } catch (e) {
     errorHandler(res, e)
   }

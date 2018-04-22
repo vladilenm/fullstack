@@ -2,7 +2,10 @@
   <div class="col s12">
     <div class="page-subtitle">
       <h4>Позиции:</h4>
-      <button class="waves-effect waves-light btn grey darken-1 btn-small" (click)="addPosition()">
+      <button
+        class="waves-effect waves-light btn grey darken-1 btn-small"
+        (click)="addPosition()"
+      >
         Добавить позицию
       </button>
     </div>
@@ -45,7 +48,10 @@
           [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"
         >
         <label for="pos-name">Название</label>
-        <span class="helper-text red-text" *ngIf="form.get('name').invalid && form.get('name').touched">
+        <span
+          class="helper-text red-text"
+          *ngIf="form.get('name').invalid && form.get('name').touched"
+        >
           Имя не должно быть пустым
         </span>
       </div>
@@ -58,7 +64,10 @@
           [ngClass]="{'invalid': form.get('cost').invalid && form.get('cost').touched}"
         >
         <label for="pos-cost">Цена</label>
-        <span class="helper-text red-text" *ngIf="form.get('cost').invalid && form.get('cost').touched">
+        <span
+          class="helper-text red-text"
+          *ngIf="form.get('cost').invalid && form.get('cost').touched"
+        >
           Введите корректную цену
         </span>
       </div>
@@ -69,7 +78,8 @@
         type="button"
         (click)="onCancel()"
         [disabled]="form.disabled"
-      >Отмена
+      >
+        Отмена
       </button>
       <button
         class="modal-action btn waves-effect"

@@ -3,7 +3,7 @@ import {PositionsService} from '../../../shared/services/positions.service'
 import {Position} from '../../../shared/interfaces'
 import {IMaterialInstance, MaterialService} from '../../../shared/classes/material.service'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
-import {Observable} from 'rxjs/Observable'
+import {Subscription} from 'rxjs/Subscription'
 
 @Component({
   selector: 'app-positions-form',
@@ -13,6 +13,8 @@ import {Observable} from 'rxjs/Observable'
 export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('modal') modalRef: ElementRef
   @Input() categoryId: string
+
+  pSub: Subscription
 
   modal: IMaterialInstance = null
   form: FormGroup
@@ -25,7 +27,7 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnInit() {
-    this.positionsService.fetch(this.categoryId).subscribe(positions => {
+    this.pSub = this.positionsService.fetch(this.categoryId).subscribe(positions => {
       this.positions = positions
       this.loading = false
     })
@@ -37,6 +39,9 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnDestroy() {
+    if (this.pSub) {
+      this.pSub.unsubscribe()
+    }
     this.modal.destroy()
   }
 
@@ -101,7 +106,10 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
           this.positions[idx] = pos
           MaterialService.toast('Изменения сохранены')
         },
-        error => MaterialService.toast(error.error.message),
+        error => {
+          this.form.enable()
+          MaterialService.toast(error.error.message)
+        },
         () => {
           this.modal.close()
           this.form.reset({name: '', cost: 0})
@@ -114,7 +122,10 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
           this.positions.push(pos)
           MaterialService.toast('Изменения сохранены')
         },
-        error => MaterialService.toast(error.error.message),
+        error => {
+          this.form.enable()
+          MaterialService.toast(error.error.message)
+        },
         () => {
           this.modal.close()
           this.form.reset({name: '', cost: 0})

@@ -3,6 +3,7 @@ import {OrderService} from './order.service'
 import {NavigationEnd, Router} from '@angular/router'
 import {IMaterialInstance, MaterialService} from '../shared/classes/material.service'
 import {OrdersService} from '../shared/services/orders.service'
+import {Subscription} from 'rxjs/Subscription'
 
 @Component({
   selector: 'app-new-order-page',
@@ -16,6 +17,8 @@ export class NewOrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
   modal: IMaterialInstance
   isRoot: boolean
   pending = false
+
+  oSub: Subscription
 
   constructor(private router: Router,
               public order: OrderService,
@@ -33,6 +36,9 @@ export class NewOrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.modal.destroy()
+    if (this.oSub) {
+      this.oSub.unsubscribe()
+    }
   }
 
   ngAfterViewInit() {
@@ -53,14 +59,17 @@ export class NewOrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
       delete i._id
       return i
     })
-    this.ordersService.create({list}).subscribe(
+    this.oSub = this.ordersService.create({list}).subscribe(
       order => {
         this.order.clear()
         this.pending = false
         this.modal.close()
         MaterialService.toast(`Заказ №${order.order} добавлен`)
       },
-      error => MaterialService.toast(error.error.message)
+      error => {
+        MaterialService.toast(error.error.message)
+        this.pending = false
+      }
     )
   }
 }

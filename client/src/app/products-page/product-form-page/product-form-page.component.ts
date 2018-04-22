@@ -23,7 +23,9 @@ export class ProductFormPageComponent implements OnInit {
 
   category: Category
 
-  constructor(private route: ActivatedRoute, private categoriesService: CategoriesService, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private categoriesService: CategoriesService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -70,9 +72,12 @@ export class ProductFormPageComponent implements OnInit {
       category => {
         this.category = category
         MaterialService.toast('Изменения сохранены')
+        this.form.enable()
       },
-      error => MaterialService.toast(error.error.message),
-      () => this.form.enable()
+      error => {
+        MaterialService.toast(error.error.message)
+        this.form.enable()
+      }
     )
   }
 

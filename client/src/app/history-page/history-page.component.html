@@ -6,7 +6,7 @@
     [class.active]="filterVisible"
     [class.red]="isFiltered()"
   >
-    <i class="material-icons">filter_list</i>
+    <i class="material-icons" #tooltip data-tooltip="Фильтр">filter_list</i>
   </button>
 </div>
 
@@ -21,7 +21,7 @@
       class="btn waves-effect grey darken-1 btn-small"
       (click)="loadMore()"
       *ngIf="!loading; else loader"
-      [ngStyle]="{opacity: noMore ? '0' : '1'}"
+      [ngStyle]="{display: noMore ? 'none' : 'inline-block'}"
     >
       Загрузить еще
     </button>

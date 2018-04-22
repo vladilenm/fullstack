@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, ViewChild, ViewEncapsulation} from '@angular/core'
+import {AfterViewInit, Component, ElementRef, ViewChild, ViewEncapsulation} from '@angular/core'
 import {AuthService} from '../../services/auth.service'
 import {Router} from '@angular/router'
 import {MaterialService} from '../../classes/material.service'
@@ -9,7 +9,7 @@ import {MaterialService} from '../../classes/material.service'
   styleUrls: ['./site-layout.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class SiteLayoutComponent implements AfterContentInit, AfterViewInit {
+export class SiteLayoutComponent implements AfterViewInit {
 
   @ViewChild('actionBtn') actionBtnEl: ElementRef
 
@@ -33,8 +33,4 @@ export class SiteLayoutComponent implements AfterContentInit, AfterViewInit {
   ngAfterViewInit() {
     MaterialService.initializeFloatingButton(this.actionBtnEl)
   }
-
-  ngAfterContentInit() {
-  }
-
 }

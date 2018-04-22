@@ -6,7 +6,10 @@
       [routerLink]="['/order', category._id]"
     >
       <div class="center">
-        <img [src]="category.imageSrc" class="responsive-img order-img">
+        <img
+          [src]="category.imageSrc"
+          class="responsive-img order-img"
+        >
       </div>
       <div class="card-content center p10">
         <h5 class="m0">{{category.name}}</h5>

@@ -1,18 +1,23 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnDestroy, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../shared/services/auth.service'
 import {ActivatedRoute, Params, Router} from '@angular/router'
 import {MaterialService} from '../shared/classes/material.service'
+import {Subscription} from 'rxjs/Subscription'
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   form: FormGroup
 
-  constructor(private auth: AuthService, private route: ActivatedRoute, private router: Router) {
+  aSub: Subscription
+
+  constructor(private auth: AuthService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -30,9 +35,15 @@ export class LoginPageComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    if (this.aSub) {
+      this.aSub.unsubscribe()
+    }
+  }
+
   onSubmit() {
     this.form.disable()
-    this.auth.login(this.form.value).subscribe(
+    this.aSub = this.auth.login(this.form.value).subscribe(
       () =>  this.router.navigate(['/overview']),
       error => {
         MaterialService.toast(error.error.message)

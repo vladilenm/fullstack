@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core'
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core'
 import {OrdersService} from '../shared/services/orders.service'
 import {Order} from '../shared/interfaces'
 import {Filter} from './history-filter/history-filter.component'
+import {Subscription} from 'rxjs/Subscription'
+import {IMaterialInstance, MaterialService} from '../shared/classes/material.service'
 
 const STEP = 2
 const LIMIT = 2
@@ -11,7 +13,10 @@ const LIMIT = 2
   templateUrl: './history-page.component.html',
   styleUrls: ['./history-page.component.css']
 })
-export class HistoryPageComponent implements OnInit {
+export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  @ViewChild('tooltip') tooltipRef: ElementRef
+  tooltip: IMaterialInstance
 
   orders: Order[] = []
 
@@ -24,6 +29,7 @@ export class HistoryPageComponent implements OnInit {
   offset = 0
 
   filter: Filter = {}
+  oSub: Subscription
 
   constructor(private ordersService: OrdersService) {
   }
@@ -33,11 +39,13 @@ export class HistoryPageComponent implements OnInit {
     this.fetch()
   }
 
-  updateList(orders: Order[]) {
-    this.orders = this.orders.concat(orders)
-    this.noMore = orders.length < STEP
-    this.loading = false
-    this.reloading = false
+  ngOnDestroy() {
+    this.oSub.unsubscribe()
+    this.tooltip.destroy()
+  }
+
+  ngAfterViewInit() {
+    this.tooltip = MaterialService.initTooltip(this.tooltipRef)
   }
 
   private fetch() {
@@ -45,7 +53,12 @@ export class HistoryPageComponent implements OnInit {
       limit: this.limit,
       offset: this.offset
     })
-    this.ordersService.fetch(params).subscribe(this.updateList.bind(this))
+    this.oSub = this.ordersService.fetch(params).subscribe((orders: Order[]) => {
+      this.orders = this.orders.concat(orders)
+      this.noMore = orders.length < STEP
+      this.loading = false
+      this.reloading = false
+    })
   }
 
   loadMore() {

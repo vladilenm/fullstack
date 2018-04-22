@@ -42,4 +42,8 @@ export class MaterialService {
       onClose
     })
   }
+
+  static initTooltip(ref: ElementRef): IMaterialInstance {
+    return M.Tooltip.init(ref.nativeElement)
+  }
 }

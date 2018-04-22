@@ -1,6 +1,9 @@
 <div class="page-title">
   <h4>Категории</h4>
-  <button class="waves-effect waves-light btn grey darken-1" routerLink="/categories/new">Добавить категорию</button>
+  <button
+    class="waves-effect waves-light btn grey darken-1"
+    routerLink="/categories/new"
+  >Добавить категорию</button>
 </div>
 
 <div class="row" *ngIf="categories$ | async as categories; else loader">

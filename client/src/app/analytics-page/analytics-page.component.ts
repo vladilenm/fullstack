@@ -19,23 +19,26 @@ export class AnalyticsPageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const gainConfig: any = {
+      label: 'Выручка',
+      color: 'rgb(255, 99, 132)'
+    }
+
+    const orderConfig: any = {
+      label: 'Заказы',
+      color: 'rgb(54, 162, 235)'
+    }
+
     this.analyticsService.fetchAnalytics().subscribe(({chart, average}) => {
       this.loading = false
       this.average = average
-      const gainConfig = {
-        labels: chart.map(i => i.label),
-        data: chart.map(i => i.gain),
-        label: 'Выручка',
-        color: 'rgb(255, 99, 132)',
-        title: 'График выручки'
-      }
-      const orderConfig = {
-        labels: chart.map(i => i.label),
-        data: chart.map(i => i.order),
-        label: 'Заказы',
-        color: 'rgb(54, 162, 235)',
-        title: 'График заказов'
-      }
+
+      gainConfig.labels = chart.map(i => i.label)
+      gainConfig.data = chart.map(i => i.gain)
+
+      orderConfig.labels = chart.map(i => i.label)
+      orderConfig.data = chart.map(i => i.order)
+
       const gainCtx = this.gainChartRef.nativeElement.getContext('2d')
       const orderCtx = this.orderChartRef.nativeElement.getContext('2d')
       gainCtx.canvas.height = 300 + 'px'
@@ -62,11 +65,7 @@ function createConfig({labels, data, label, color, title}) {
       ]
     },
     options: {
-      responsive: true,
-      title: {
-        display: true,
-        text: title,
-      }
+      responsive: true
     }
   }
 }

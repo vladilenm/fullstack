@@ -11,10 +11,6 @@ export class OrdersService {
     return this.http.post<Order>('/api/order', order)
   }
 
-  getById(id: string): Observable<Order> {
-    return this.http.get<Order>(`/api/order/${id}`)
-  }
-
   fetch(params: any = {}): Observable<Order[]> {
     return this.http.get<Order[]>(`/api/order`, {
       params: new HttpParams({fromObject: params})
