@@ -10,13 +10,13 @@
   </thead>
 
   <tbody>
-  <tr *ngFor="let order of viewOrders">
+  <tr *ngFor="let order of orders">
     <td>{{order.order}}</td>
-    <td>{{order.date}}</td>
-    <td>{{order.time}}</td>
-    <td>{{order.price}} руб.</td>
+    <td>{{getOrderDate(order)}}</td>
+    <td>{{getOrderTime(order)}}</td>
+    <td>{{calculatePrice(order)}} руб.</td>
     <td>
-      <button class="btn btn-small grey darken-1" (click)="showOrderList(order.id)">
+      <button class="btn btn-small grey darken-1" (click)="showOrderList(order)">
         <i class="material-icons">open_in_new</i>
       </button>
     </td>

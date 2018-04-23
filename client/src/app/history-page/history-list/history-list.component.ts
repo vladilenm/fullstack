@@ -1,51 +1,32 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core'
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core'
 import {Order} from '../../shared/interfaces'
-import * as moment from 'moment'
 import {IMaterialInstance, MaterialService} from '../../shared/classes/material.service'
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-history-list',
   templateUrl: './history-list.component.html',
   styleUrls: ['./history-list.component.css']
 })
-export class HistoryListComponent implements OnChanges, AfterViewInit, OnDestroy {
+export class HistoryListComponent implements AfterViewInit, OnDestroy {
   @Input() orders: Order[]
   @ViewChild('modal') modalRef: ElementRef
 
   modal: IMaterialInstance
-  viewOrders: any[]
-
   selectedOrder: Order
-
-  ngOnChanges({orders}: SimpleChanges) {
-    this.viewOrders = this.mapOrdersView(orders.currentValue)
-  }
-
-  mapOrdersView(orders: Order[]) {
-    return orders.map(order => {
-      return {
-        order: order.order,
-        date: moment(order.date).format('DD.MM.YYYY'),
-        time: moment(order.date).format('HH:mm:ss'),
-        price: this.calculatePrice(order),
-        id: order._id
-      }
-    })
-  }
 
   calculatePrice(order: Order): number {
     return order.list.reduce((total, item) => {
       return total += item.quantity * item.cost
     }, 0)
+  }
+
+  getOrderTime(order: Order): string {
+    return moment(order.date).format('HH:mm:ss')
+  }
+
+  getOrderDate(order: Order): string {
+    return moment(order.date).format('DD.MM.YYYY')
   }
 
   ngAfterViewInit() {
@@ -56,8 +37,8 @@ export class HistoryListComponent implements OnChanges, AfterViewInit, OnDestroy
     this.modal.destroy()
   }
 
-  showOrderList(orderId: string) {
-    this.selectedOrder = this.orders.find(order => order._id === orderId)
+  showOrderList(order: Order) {
+    this.selectedOrder = order
     this.modal.open()
   }
 
