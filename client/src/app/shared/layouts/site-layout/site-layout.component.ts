@@ -18,7 +18,7 @@ export class SiteLayoutComponent implements AfterViewInit {
     {url: '/analytics', name: 'Аналитика'},
     {url: '/history', name: 'История'},
     {url: '/order', name: 'Новый заказ'},
-    {url: '/categories', name: 'Категории'}
+    {url: '/categories', name: 'Ассортимент'}
   ]
 
   constructor(private auth: AuthService, private router: Router) {

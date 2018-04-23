@@ -5,6 +5,7 @@
     <th>Дата</th>
     <th>Время</th>
     <th>Сумма</th>
+    <th></th>
   </tr>
   </thead>
 
@@ -14,8 +15,40 @@
     <td>{{order.date}}</td>
     <td>{{order.time}}</td>
     <td>{{order.price}} руб.</td>
+    <td>
+      <button class="btn btn-small grey darken-1" (click)="showOrderList(order.id)">
+        <i class="material-icons">open_in_new</i>
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>
 
+<div #modal class="modal modal-fixed-footer">
+  <div class="modal-content" *ngIf="selectedOrder">
+    <h4 class="mb1">Заказ №{{selectedOrder.order}}</h4>
+    <table class="highlight">
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Количество</th>
+        <th>Цена</th>
+      </tr>
+      </thead>
 
+      <tbody>
+      <tr *ngFor="let item of selectedOrder.list">
+        <td>{{item.name}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.cost}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="order-summary">
+      <p>Общая стоимость <strong>{{calculatePrice(selectedOrder)}} руб.</strong></p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action waves-effect waves-black btn-flat" (click)="closeListModal()">Закрыть</button>
+  </div>
+</div>
